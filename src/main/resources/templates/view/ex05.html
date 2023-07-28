@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<!-- ~{경로::함수명(~{내파일의 :: 선택자})}-->
+<th:block th:replace="~{/include/layout03 :: 함수명(~{:: .wrap})}"> <!--내 파일의 wrap클래스를 매개변수로 전달-->
+<!--<th:block th:replace="~{/include/layout03 :: 함수명(~{:: #wrap})}"> 내 파일의 wrap id를 매개변수로 전달-->
+	<div class="wrap">
+		템플릿에 전달될 화면
+	</div>
+	
+	<div id="wrap">
+		템플릿에 전달될 화면 id인 경우 
+	</div>
+	
+</th:block>
+
+<script>
+	
+	console.log('화면에서 사용할 js는 th:block태그 바깥에 작성'); 
+</script>
+
+</html>

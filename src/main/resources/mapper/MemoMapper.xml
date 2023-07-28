@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.simple.basic.memo.service.MemoMapper"> <!-- namespace 값에는 Mapper인터페이스 주소 적기 -->
+  	<insert id="memoRegist" parameterType="MemoVO"> <!-- mybatis 설정에서 클래스 이름을 단축명으로 사용하도록 선언해 놓음 -->
+  		insert into memo (memo, phone, pw, secret) values(#{memo}, #{phone}, #{pw}, #{secret})
+  	</insert>
+  	
+  	<select id="getMemoList" resultType="com.simple.basic.command.MemoVO">
+  		select * from memo order by mno desc
+  	</select>
+  </mapper>
