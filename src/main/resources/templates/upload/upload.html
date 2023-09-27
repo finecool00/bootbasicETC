@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h3>파일 업로드하기</h3>
+	
+	<h3>단일파일</h3>
+	<!--!!!중요!!! enctype="multipart/form-data-->
+	<form action="upload_ok" method="post" enctype="multipart/form-data">
+		<input type="file" name="file">
+		<input type="submit" value="파일올리기">
+	</form>
+	
+	<h3>복수태그를 사용한 다중파일 업로드 - List(MutipartFile)</h3>
+	<form action="upload_ok2" method="post" enctype="multipart/form-data">
+		<input type="file" name="file">
+		<input type="file" name="file">
+		<input type="file" name="file">
+		<input type="submit" value="파일올리기">
+	</form>
+	
+	<h3>multiple 옵션을 사용한 다중파일 업로드</h3>
+	<form action="upload_ok3" method="post" enctype="multipart/form-data">
+		<input type="file" name="file" multiple="multiple">
+		<input type="submit" value="파일올리기">
+		
+	</form>
+	
+	
+	<div>
+		<h3>비동기방식으로 처리하기</h3>
+		<input type="file" name="file_a">
+		<button onclick="upload()">비동기업로드하기</button>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+	<script>
+		function upload() {
+			//1. 파읻데이터 얻기
+			let file = $("input[name='file_a']");
+			console.log(file); //jquery 함수
+			console.log(file[0]); // input 태그
+			console.log(file[0].files); // 파일리스트
+			console.log(file[0].files[0]); //파일객체 => 서버로 전송
+			
+			//2. 폼객체
+			let formData = new FormData();
+			formData.append("file", file[0].files[0]); //키, 데이터
+			
+			//3. 전송
+			$.ajax({
+				url: "upload_ok4/",
+				type: "post",
+				data: formData, //폼데이터
+				contentType: false, //기본값이 multipart/form-data형식으로 자동선언
+				processData: false, //jquery가 폼데이터를 쿼리스트링으로 담게 되는데 자동으로 변경되는 것을 방지
+				success: function(data) {
+					console.log(data);
+				},
+				error: function(status, error) {
+					console.log(status);
+				}
+			})
+		
+		}
+	</script>
+	
+	<hr>
+	<h3>이미지 불러오기(컨트롤러 레스트 요청)</h3>
+	<img src="display?filename=스크린샷 2023-07-25 092321.png&filepath=20230804&uuid=b68c65f2-f1bd-457c-bb33-e6127781d965">
+	
+</body>
+</html>

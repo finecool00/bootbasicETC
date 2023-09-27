@@ -6,5 +6,68 @@
 </head>
 <body>
 	타입리프 뷰
+	<button id="getData">get방식</button>
+	<button id="getJSON">post방식</button>
+	<button id="getAPI">get으로 보내기</button>
+	<button id="a">a으로 보내기</button>
+	<button id="postAPI">post로 보내기</button>
+	<script>
+		let getData = document.getElementById("getData");
+		getData.onclick = ()=> {
+		//fetch는 get방식에서...
+		fetch("/getData?sno=1&first=Don")
+		.then(response => response.json())
+		.then(t => console.log(t));
+		}
+		
+		////////////////
+		let getJSON = document.getElementById("getJSON");
+		getJSON.onclick = () => {
+			fetch("/getJSON", {
+				method:"post",
+				headers: {
+					"Content-Type" : "application/json",
+					
+				},
+				body : JSON.stringify({ "sno": "1", "first" : "Lauren", "last" : "Price"})
+			})
+			.then(response => response.json())
+			.then(t => console.log(t))
+		}
+		
+		
+		
+		///////////////////////////////////
+		let getAPI = document.getElementById("getAPI");
+		getAPI.onclick = () => {
+			fetch("/api/vl/getData?num=7&first=지유&last=김")
+			.then(response => response.json())
+			.then(t => console.log(t))
+		}
+		
+		let a = document.getElementById("a");
+		a.onclick = () => {
+			fetch("/api/vl/getData/3/mina")
+			.then(response => response.json())
+			.then(t => console.log(t))
+		}
+		
+		
+		
+		
+		let postAPI = document.getElementById("postAPI");
+		postAPI.onclick = () => {
+			fetch("/api/vl/getInfo", {
+				method:"post",
+				headers: {
+					"Content-Type" : "application/json",
+					
+				},
+				body : JSON.stringify({"num" : "7", "name" : "지유"})
+			})
+			.then(response => response.json()) // 서버에서 응답온 json데이터로 주기 때문에 다시 promise로 바꿔줌
+			.then(t => console.log(t))
+		}
+	</script>
 </body>
 </html>
